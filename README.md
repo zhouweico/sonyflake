@@ -77,7 +77,7 @@ But after the Sonyflake time is over the limit, NextID returns an error.
 AWS VPC and Docker
 ------------------
 
-The [awsutil](https://github.com/sony/sonyflake/blob/master/awsutil) package provides
+The [awsutil](https://github.com/zhouweico/sonyflake/blob/master/awsutil) package provides
 the function AmazonEC2MachineID that returns the lower 16-bit private IP address of the Amazon EC2 instance.
 It also works correctly on Docker
 by retrieving [instance metadata](http://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide/ec2-instance-metadata.html).
@@ -88,11 +88,11 @@ So if each EC2 instance has a unique private IP address in AWS VPC,
 the lower 16 bits of the address is also unique.
 In this common case, you can use AmazonEC2MachineID as Settings.MachineID.
 
-See [example](https://github.com/sony/sonyflake/blob/master/example) that runs Sonyflake on AWS Elastic Beanstalk.
+See [example](https://github.com/zhouweico/sonyflake/blob/master/example) that runs Sonyflake on AWS Elastic Beanstalk.
 
 License
 -------
 
 The MIT License (MIT)
 
-See [LICENSE](https://github.com/sony/sonyflake/blob/master/LICENSE) for details.
+See [LICENSE](https://github.com/zhouweico/sonyflake/blob/master/LICENSE) for details.
