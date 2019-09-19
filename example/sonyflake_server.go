@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"time"
-	"github.com/sony/sonyflake"
+	"github.com/zhouweico/sonyflake"
 )
 
 var sf *sonyflake.Sonyflake
