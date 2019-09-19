@@ -9,15 +9,15 @@ Sonyflake
 Sonyflake is a distributed unique ID generator inspired by [Twitter's Snowflake](https://blog.twitter.com/2010/announcing-snowflake).  
 A Sonyflake ID is composed of
 
-    39 bits for time in units of 10 msec
-     8 bits for a sequence number
+    41 bits for time in units of 10 msec
+     6 bits for a sequence number
     16 bits for a machine id
 
 Installation
 ------------
 
 ```
-go get github.com/sony/sonyflake
+go get github.com/zhouweico/sonyflake
 ```
 
 Usage
@@ -40,7 +40,7 @@ type Settings struct {
 ```
 
 - StartTime is the time since which the Sonyflake time is defined as the elapsed time.
-  If StartTime is 0, the start time of the Sonyflake is set to "2014-09-01 00:00:00 +0000 UTC".
+  If StartTime is 0, the start time of the Sonyflake is set to "2019-1-1 00:00:00 +0000 UTC".
   If StartTime is ahead of the current time, Sonyflake is not created.
 
 - MachineID returns the unique ID of the Sonyflake instance.
