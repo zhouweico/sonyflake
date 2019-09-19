@@ -14,7 +14,7 @@ A Sonyflake ID is composed of
     16 bits for a machine id
 
 
-sonyflake 中文描述
+## sonyflake 中文描述
 
 sonyflake的结构如下(每部分用-分开):
 
