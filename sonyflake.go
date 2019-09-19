@@ -15,8 +15,8 @@ import (
 
 // These constants are the bit lengths of Sonyflake ID parts.
 const (
-	BitLenTime      = 39                               // bit length of time
-	BitLenSequence  = 8                                // bit length of sequence number
+	BitLenTime      = 41                               // bit length of time
+	BitLenSequence  = 6                                // bit length of sequence number
 	BitLenMachineID = 63 - BitLenTime - BitLenSequence // bit length of machine id
 )
 
@@ -63,7 +63,7 @@ func NewSonyflake(st Settings) *Sonyflake {
 		return nil
 	}
 	if st.StartTime.IsZero() {
-		sf.startTime = toSonyflakeTime(time.Date(2014, 9, 1, 0, 0, 0, 0, time.UTC))
+		sf.startTime = toSonyflakeTime(time.Date(2019, 1, 1, 0, 0, 0, 0, time.UTC))
 	} else {
 		sf.startTime = toSonyflakeTime(st.StartTime)
 	}
@@ -90,6 +90,7 @@ func (sf *Sonyflake) NextID() (uint64, error) {
 	defer sf.mutex.Unlock()
 
 	current := currentElapsedTime(sf.startTime)
+
 	if sf.elapsedTime < current {
 		sf.elapsedTime = current
 		sf.sequence = 0
@@ -105,7 +106,7 @@ func (sf *Sonyflake) NextID() (uint64, error) {
 	return sf.toID()
 }
 
-const sonyflakeTimeUnit = 1e7 // nsec, i.e. 10 msec
+const sonyflakeTimeUnit = 1e6 // nsec, i.e. 1 msec
 
 func toSonyflakeTime(t time.Time) int64 {
 	return t.UTC().UnixNano() / sonyflakeTimeUnit
@@ -116,7 +117,7 @@ func currentElapsedTime(startTime int64) int64 {
 }
 
 func sleepTime(overtime int64) time.Duration {
-	return time.Duration(overtime)*10*time.Millisecond -
+	return time.Duration(overtime)*time.Millisecond -
 		time.Duration(time.Now().UTC().UnixNano()%sonyflakeTimeUnit)*time.Nanosecond
 }
 
