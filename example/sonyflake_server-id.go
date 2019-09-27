@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"net/http"
 	"time"
 	"strconv"
@@ -28,7 +29,25 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(strconv.FormatUint(id, 10)))
 }
 
+func stats(w http.ResponseWriter, r *http.Request) {
+	id, err := sf.NextID()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	body, err := json.Marshal(sonyflake.Decompose(id))
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header()["Content-Type"] = []string{"application/json; charset=utf-8"}
+	w.Write(body)
+}
+
 func main() {
 	http.HandleFunc("/", handler)
+	http.HandleFunc("/stats", stats)
 	http.ListenAndServe(":8080", nil)
 }
